@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
+import cn from 'classnames';
 import * as actions from './actions';
 import Header from './components/Header';
 import ShopWindow from './components/ShopWindow';
@@ -45,7 +45,7 @@ class App extends React.Component {
 
   handleAddToCart = (id) => (e) => {
     e.preventDefault();
-    const { addItemToCart, addItemQuantity, goods, cart, changeSum} = this.props;
+    const { addItemToCart, addItemQuantity, goods, cart } = this.props;
     const item = goods.filter( (item) => item.id === id )[0];
     const isItemInCart = cart.filter( (item) => item.id === id ).length > 0;
     if (isItemInCart) addItemQuantity(id);
@@ -54,13 +54,13 @@ class App extends React.Component {
 
   handleAddItemQnt = (id) => (e) => {
     e.preventDefault();
-    const { addItemQuantity, changeSum } = this.props;
+    const { addItemQuantity } = this.props;
     addItemQuantity(id);
   }
 
   handleTurnDownItemQnt = (id) => (e) => {
     e.preventDefault();
-    const { turnDownItemQuantity, changeSum } = this.props;
+    const { turnDownItemQuantity } = this.props;
     turnDownItemQuantity(id);
   }
 
@@ -88,12 +88,12 @@ class App extends React.Component {
   }
 
   render() {
-    const {slider, goods, cart, isCartOpen, cartSum} = this.props;
-    const cartClasses = classnames({
+    const { slider, goods, cart, isCartOpen } = this.props;
+    const cartClasses = cn({
       'cart': true,
       'cart-show': isCartOpen,
     });
-    const appClasses = classnames({
+    const shadowClasses = cn({
       'shadow': isCartOpen,
     });
     return (
@@ -110,7 +110,7 @@ class App extends React.Component {
             handlePrintClick={this.handlePrintClick} handleCartClick={this.handleCartClick}
             handleTurnDownItemQnt={this.handleTurnDownItemQnt} />
         </div>
-        <div className={appClasses} onClick={this.handleCartClick}></div>
+        <div className={shadowClasses} onClick={this.handleCartClick}></div>
       </>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import cn from 'classnames';
 import { Link } from 'react-router-dom'; 
 
 
@@ -21,7 +21,7 @@ const Slide = (props) => {
 const ShopWindow = (props) => {
   const { sliderItems, handleSliderBtn } = props;
   const sliderItemsToShow = sliderItems.length > 3 ? sliderItems.slice(0, 3) : sliderItems;
-  const btnClasses = classnames({
+  const btnClasses = cn({
     'shop-window-btn': true,
     'hidden': sliderItems.length <= 3,
   }); 
