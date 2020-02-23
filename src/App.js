@@ -74,11 +74,14 @@ class App extends React.Component {
   handleSliderBtn = (direction) => (e) => {
     e.preventDefault();
     const {shiftSliderLeft, shiftSliderRight} = this.props;
+
     switch(direction) {
-      case 'left':
-        return shiftSliderLeft();
-      case 'right':
-        return shiftSliderRight();
+      case 'left': 
+        return transitSlider(direction, shiftSliderLeft);  
+      case 'right': 
+        return transitSlider(direction, shiftSliderRight);
+      default: 
+      return;
     }
   }
 
@@ -114,6 +117,22 @@ class App extends React.Component {
       </>
     );
   }
+}
+
+function transitSlider(direction, transit) {
+  const slider = [].slice.call(document.getElementsByClassName('goods'));
+  const sliderCls = "slider-translate-" + direction;
+  const opacitySliderNumber = direction === 'right'? 0: (slider.length - 1) 
+
+  slider.map( (item) => item.classList.add(sliderCls) );
+  slider[opacitySliderNumber].classList.add("slider-opacity");
+  
+  return setTimeout(
+    function(){
+      transit();
+      slider.map( (item) => item.classList.remove(sliderCls) );
+    }
+  , 500);
 }
 
 export default connect(mapStateToProps, actionCreators)(App);
